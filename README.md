@@ -1,16 +1,38 @@
-# riverpod_ex
+# Riverpod을 이용한 상태관리
 
-A new Flutter project.
+## 1. Riverpod 소개
+<details>
+<summary> 내용 보기</summary>
+<br>
 
-## Getting Started
+- main.dart 의 runApp 부분을 ProviderScope 로 감싸준다.
+    ```
+        void main(){
+            runApp(const ProviderScope(
+                    child: MyApp()
+                )
+            )
+        }
+    ```
+- 관리할 상태를 StateProvider 를 통해서 만든다.
 
-This project is a starting point for a Flutter application.
+    ```
+        final numberProvider = StateProvider<int>((ref) => 0);            
+    ```
+- 상태를 사용하고 싶은 위젯을 ConsumerWidget 으로 바꿔준다.
 
-A few resources to get you started if this is your first Flutter project:
+    ```
+       class StateProviderScreen extends ConsumerWidget {} 
+    ```
+- ConsumerWidget 은 WidgetRef 를 사용해야 한다.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    ```
+       Widget build(BuildContext context, WidgetRef ref) {} 
+    ```
+- 상태를 확인 및 변경하기 위해 ref 의 메서드를 사용한다.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    ```
+        ref.watch(numberProvider);
+        ref.read(numberProvider.notifier).update((state) => state + 1);
+    ```
+</details>
