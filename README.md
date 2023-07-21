@@ -69,3 +69,95 @@
         ref.read(numberProvider.notifier).state = ref.read(numberProvider.notifier).state - 1;
     ```
 </details>
+
+## 4. StateNotifierProvider 실습
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- 가장 많이 사용되는 형태의 Provider
+- StateNotifierProvider 는 class 로 선언해야 한다.
+- StateNotifier 을 꼭 상속받아야 한다.
+- StateNotifier 의 제네릭에는 상태 관리할 타입이 어떤타입인지 지정해줘야한다.
+- 생성자의 super 값 에는 state 를 처음에 어떻게 초기화 할지 넣어줘야한다. ( 제네릭의 타입과 일치해야함 )
+- 즉, 다른 Provider 와는 다르게 super 안에서 state 를 초기화 한다.
+
+    ```
+        class ShoppingListNotifier extends StateNotifier<List<ShoppingItemModel>> {
+            ShoppingListNotifier()
+            : super(
+                    [
+                        ShoppingItemModel(
+                            name: '김치',
+                            quantity: 3,
+                            hasBought: false,
+                            isSpicy: true,
+                        ),
+                        ShoppingItemModel(
+                            name: '라면',
+                            quantity: 5,
+                            hasBought: false,
+                            isSpicy: true,
+                        ),
+                        ShoppingItemModel(
+                            name: '삼겹살',
+                            quantity: 8,
+                            hasBought: false,
+                            isSpicy: false,
+                        ),
+                        ShoppingItemModel(
+                            name: '수박',
+                            quantity: 2,
+                            hasBought: false,
+                            isSpicy: false,
+                        ),
+                        ShoppingItemModel(
+                            name: '카스테라',
+                            quantity: 1,
+                            hasBought: false,
+                            isSpicy: false,
+                        )
+                    ],
+                );
+        }
+    ```
+- StateNotifierProvider 내부에서 state 를 사용하면 초기화 된 state 를 사용할수 있다. ( extends StateNotifier 에서 제공하는 값 )
+
+    ```
+        void toggleHasBought({required String name}) {
+            state = state
+                .map((e) => e.name == name
+                    ? ShoppingItemModel(
+                        name: e.name,
+                        quantity: e.quantity,
+                        hasBought: !e.hasBought,
+                        isSpicy: e.isSpicy)
+                    : e)
+                .toList();
+        }
+    ```
+- 이 StateNotifier 를 Provider 로 제공할땐 아래와 같이 사용한다.
+- StateNotifierProvider 의 첫번째 제네릭엔 내가 만든 StateNotifier 를 넣는다.
+- StateNotifierProvider 의 두번째 제네릭엔 state 의 타입을 넣는다.
+- 그리고 StateNotifier 를 return 한다.
+
+    ```
+        final shoppingListProvider =
+            StateNotifierProvider<ShoppingListNotifier, List<ShoppingItemModel>>(
+                (ref) => ShoppingListNotifier()
+            );
+    ```
+- 사용법은 다른 Provider 들과 같다.
+
+    ```
+        ref.read()
+        ref.watch()
+    ```
+- ref.read(somthing.notifier) 은 인스턴스와 같다.
+
+    ```
+        // 클래스 내부 메서드 사용 가능
+
+        ref.read(shoppingListProvider.notifier).toggleHasBought(name: e.name);
+    ```
+</details>
