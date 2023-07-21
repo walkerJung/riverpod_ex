@@ -57,3 +57,15 @@
 - ref.read 는 실행되는 순간 단 한번만 provider 값을 가져온다.
 - ref.read 는 onPressed 콜백처럼 특정 액션 뒤에 실행되는 함수 내부에서 사용된다.
 </details>
+
+## 3. StateProvider 실습
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- update 시키는 방법 외에 state 자체에 state 값을 변경해서 할당시켜줄수 있다.
+
+    ```
+        ref.read(numberProvider.notifier).state = ref.read(numberProvider.notifier).state - 1;
+    ```
+</details>

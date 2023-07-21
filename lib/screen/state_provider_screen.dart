@@ -27,6 +27,13 @@ class StateProviderScreen extends ConsumerWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                ref.read(numberProvider.notifier).state =
+                    ref.read(numberProvider.notifier).state - 1;
+              },
+              child: const Text('DOWN'),
+            ),
+            ElevatedButton(
+              onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => const _NextScreen(),
@@ -34,7 +41,7 @@ class StateProviderScreen extends ConsumerWidget {
                 );
               },
               child: const Text('Next Screen'),
-            )
+            ),
           ],
         ),
       ),
@@ -57,12 +64,11 @@ class _NextScreen extends ConsumerWidget {
           children: [
             Text(provider.toString()),
             ElevatedButton(
-                onPressed: () {
-                  ref
-                      .read(numberProvider.notifier)
-                      .update((state) => state + 1);
-                },
-                child: const Text('UP'))
+              onPressed: () {
+                ref.read(numberProvider.notifier).update((state) => state + 1);
+              },
+              child: const Text('UP'),
+            )
           ],
         ),
       ),
