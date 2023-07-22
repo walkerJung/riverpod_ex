@@ -195,3 +195,30 @@
         )
     ```
 </details>
+
+## 6. StreamProvider 실습
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- FutureProvider 와 같은 방식으로 만들수 있다. ( 대부분의 provider 는 state 를 return 해주는 형식이다. )
+
+    ```
+        final multipleStreamProvider = StreamProvider<List<int>>((ref) async* {
+            for (int i = 0; i < 10; i++) {
+                await Future.delayed(const Duration(seconds: 2));
+
+                yield List.generate(3, (index) => index * i);
+            }
+        });
+    ```
+- StreamProvider 의 return 타입은 AsyncValue 이기 때문에 when() 메서드를 사용할수 있다.
+- when() 메서드는 data, error, loading 으로 나뉘어져 AsyncValue 의 상태에 따라 화면에 렌더링 할것들을 설정할수 있다.
+    ```
+        state.when(
+          data: (data) => Text(data.toString()),
+          error: (err, stack) => Text(err.toString()),
+          loading: () => const CircularProgressIndicator(),
+        ),
+    ```
+</details>
