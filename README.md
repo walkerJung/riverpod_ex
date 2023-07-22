@@ -161,3 +161,37 @@
         ref.read(shoppingListProvider.notifier).toggleHasBought(name: e.name);
     ```
 </details>
+
+## 5. FutureProvider 실습
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- 일반 Provider 와 같은 방식으로 만들수 있다.
+
+    ```
+        final multiplesFutureProvider = FutureProvider<List<int>>(
+            (ref) async {
+                await Future.delayed(
+                const Duration(seconds: 2),
+                );
+
+                return [1, 2, 3, 4, 5];
+            },
+        );
+    ```
+- FutureProvider 의 return 타입은 AsyncValue 이기 때문에 when() 메서드를 사용할수 있다.
+- when() 메서드는 data, error, loading 으로 나뉘어져 AsyncValue 의 상태에 따라 화면에 렌더링 할것들을 설정할수 있다.
+
+    ```
+        state.when(
+            data: (data) {
+                return Text(data.toString());
+            },
+            error: (error, stack) => Text(error.toString()),
+            loading: () => const Center(
+                child: CircularProgressIndicator(),
+            ),
+        )
+    ```
+</details>
