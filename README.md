@@ -254,3 +254,62 @@
 - autoDispose 는 자동으로 캐시를 삭제하고 싶을때 사용한다.
 
 </details>
+
+## 9. Listen 함수 실습
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- stateful 위젯에서 provider 를 사용하려는 경우 ConsumerStatefulWidget, ConsumerState 로 변경해주면 된다.
+
+    ```
+        class ListenProviderScreen extends ConsumerStatefulWidget {}
+        class _ListenProviderScreenState extends ConsumerState<ListenProviderScreen> {}
+    ```
+- ConsumerState 는 두번째 인자로 WidgetRef 를 받지 않아도 this.ref 로 글로벌 하게 사용할수 있다.
+- controller 에서 vsync 를 사용할때는 with TickerProviderStateMixin 후 this 를 전달한다.
+
+    ```
+        class _ListenProviderScreenState extends ConsumerState<ListenProviderScreen> with TickerProviderStateMixin {
+            late final TabController _tabController;
+
+            @override
+            void initState() {
+                super.initState();
+
+                _tabController = TabController(length: 10, vsync: this);
+            }
+        }
+    ```
+- listen 함수는 state 의 변경 전 값 (previous) 와 변경 후 값 (next) 를 알수 있다.
+- listen 함수의 제네릭은 previous 와 next 의 타입을 정해주면 된다.
+
+    ```
+        ref.listen<int>(listenProvider, (previous, next) {});
+    ```
+- state 값을 update 해주는 이벤트를 추가하고 listen 함수 바디부분에서 animatedTo(next) 로 화면 전환을 구현하였다.
+
+    ```
+        ref.listen<int>(listenProvider, (previous, next) {
+            if(previouse != next) animatedTo(next);
+        });
+
+        onPressed(){
+            ref.read(listenProvider.notifier).update((state) => state != 10 ? state + 1 : 10);
+        }
+    ```
+- listen 함수는 dispose 를 하지 않아도 되도록 설계되어 있다.
+- initState 내부에선 watch 를 사용할수 없고, 단발적인 메서드들만 사용해야한다.
+
+    ```
+        void initState() {
+            super.initState();
+
+            _tabController = TabController(
+                length: 10,
+                vsync: this,
+                initialIndex: ref.read(listenProvider),
+            );
+        }
+    ```
+</details>
