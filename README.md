@@ -313,3 +313,15 @@
         }
     ```
 </details>
+
+## 10. Select 실습
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- ShoppingItemModel 에 copyWith 함수를 추가해서 필요한 필드만 변경할수 있도록 한다.
+- ref.watch 를 하고있으면 필드가 변경될때 다시 빌드된다.
+- select 는 보통 최적화 하기 위해 사용한다.
+- select 한 value 가 변경될때만 빌드가 된다.
+
+</details>
