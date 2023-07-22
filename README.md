@@ -230,7 +230,7 @@
 
 - Modifier 에는 family 와 autoDispose 2종류가 있다.
 - Provider 뒤에 붙여서 사용할수 있다.
-- 주로 Provider 로직 안에 다른 인자를 추가하여 return 할때 modifier 를 사용한다.
+- 주로 Provider 로직 안에 다른 인자를 추가하여 state 를 수정할때 modifier 를 사용한다.
 - Provider 의 타입 뒤에 추가하려는 인자의 타입과 data 인자를 추가하여 사용한다.
 
     ```
@@ -244,4 +244,13 @@
             },
         );
     ```
+</details>
+
+## 8. AutoDispose Modifier 실습
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- autoDispose 는 자동으로 캐시를 삭제하고 싶을때 사용한다.
+
 </details>

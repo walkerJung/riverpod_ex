@@ -6,6 +6,6 @@ final familyModifierProvider = FutureProvider.family<List<int>, int>(
       const Duration(seconds: 2),
     );
 
-    return [1, 2, 3, 4, 5];
+    return [1 * data, 2 * data, 3 * data, 4 * data, 5 * data];
   },
 );
