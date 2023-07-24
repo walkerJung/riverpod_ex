@@ -392,3 +392,15 @@
         );
     ```
 </details>
+
+## 12. ProviderObserver 실습
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- ProviderObserver 는 Provider 를 관찰하는 역할을 한다.
+- 주로 logger 로 많이 사용한다.
+
+
+</details>
+
