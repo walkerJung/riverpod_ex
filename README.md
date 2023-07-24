@@ -492,5 +492,23 @@
     ```
 </details>
 
+## 5. Riverpod v2 Invalidate 함수
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- invalidate 함수는 원하는 state 를 초기값으로 변환하는 함수이다.
+
+    ```
+        ElevatedButton(
+            onPressed: () {
+                ref.invalidate(gStateNotifierProvider);
+            },
+            child: const Text('Invalidate'),
+        )
+    ```
+</details>
+
+
 
 
