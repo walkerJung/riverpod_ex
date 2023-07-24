@@ -325,3 +325,70 @@
 - select 한 value 가 변경될때만 빌드가 된다.
 
 </details>
+
+## 11. Provider안에 Provider 사용하기
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- Provider 안에 기존에 만들어둔 Provider 를 선언할수 있다. 주로 watch 를 많이 사용한다.
+
+    ```
+        final filteredShoppingListProvider = Provider(
+          (ref) => ref.watch(shoppingListProvider),
+        );
+    ```
+- 위와 같이 부모 자식 관계의 Provider 에서 자식 Provider 로 접근하여 state 를 변경하더라도, 부모 Provider 를 watch 하고있는 위젯이 다시 build 된다.
+
+    ```
+        // 부모 Provider watch        
+       final state = ref.watch(filteredShoppingListProvider);   
+
+        
+        // 자식 Provider 를 변경하는 event
+       onChanged: (value) {
+            ref
+                .read(shoppingListProvider.notifier)
+                .toggleHasBought(name: e.name);
+        }, 
+    ```
+- appBar 의 actions 속성에 PopupMenuItem() 을 추가하면 오른쪽 상단에 팝업 관련 UI 를 추가할수 있다
+
+    ```
+       actions: [
+        PopupMenuButton<FilterState>(
+          itemBuilder: (_) => FilterState.values
+              .map(
+                (e) => PopupMenuItem(
+                  value: e,
+                  child: Text(e.name),
+                ),
+              )
+              .toList(),
+          onSelected: (value) {
+            ref.read(filterProvider.notifier).update((state) => value);
+          },
+        ),
+      ], 
+    ```
+- Provider 속에서 여러가지 Provider 를 watch 하면서 로직을 구현할수 있다.
+
+    ```
+        final filteredShoppingListProvider = Provider<List<ShoppingItemModel>>(
+            (ref) {
+                final filterState = ref.watch(filterProvider);
+                final shoppingListState = ref.watch(shoppingListProvider);
+
+                if (filterState == FilterState.all) {
+                return shoppingListState;
+                }
+
+                return shoppingListState
+                    .where((element) => filterState == FilterState.spicy
+                        ? element.isSpicy
+                        : !element.isSpicy)
+                    .toList();
+            },
+        );
+    ```
+</details>
