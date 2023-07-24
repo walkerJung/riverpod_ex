@@ -466,5 +466,31 @@
 
 </details>
 
+## 4. Riverpod v2 StateNotifierProvider 코드제너레이션으로 생성하기
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- generation 을 사용하여 stateNotifier 를 만들때 build 메서드만 오버라이드 해주면 된다
+
+    ```
+        @riverpod
+        class GStateNotifier extends _$GStateNotifier {
+            @override
+            int build() {
+                return 0;
+            }
+
+            increment() {
+                state++;
+            }
+
+            decrement() {
+                state--;
+            }
+        }
+    ```
+</details>
+
 
 
