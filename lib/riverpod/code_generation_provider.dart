@@ -24,3 +24,8 @@ Future<int> gStateFuture2(GStateFuture2Ref ref) async {
 }
 
 // 2) Parameter > Family 파라미터를 일반 함수처럼 사용할 수 있도록
+@riverpod
+int gStateMultyply(GStateMultyplyRef ref,
+    {required int number1, required int number2}) {
+  return number1 * number2;
+}

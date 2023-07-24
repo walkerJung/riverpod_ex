@@ -448,3 +448,23 @@
     ```
 </details>
 
+## 3. Riverpod v2 Family로 파라미터 전달받기
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- generation 을 사용하면 family 의 데이터를 일반함수 파라미터처럼 받을수 있다.
+    ```
+        @riverpod
+        int gStateMultyply(GStateMultyplyRef ref,
+            {required int number1, required int number2}) {
+            return number1 * number2;
+        }
+
+        final state4 = ref.watch(gStateMultyplyProvider(number1: 5, number2: 2));
+    ```
+
+</details>
+
+
+
