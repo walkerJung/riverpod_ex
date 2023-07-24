@@ -408,3 +408,24 @@
 
 # Riverpod v2
 
+## 1. Riverpod v2 코드제너레이션 소개
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- CodeGeneration 을 사용하려면 part '~.g.dart' 를 선언해주어야 한다.
+
+    ```
+        part 'code_generation_provider.g.dart';
+    ```
+- @riverpod 어노테이션을 사용해서 provider 를 만들수 있다.
+- 첫번째 인자값은 무조건 ref 가 들어가는데 타입은 선언한 함수명 앞글자를 대문자로 바꿔주면 된다.
+
+    ```
+        @riverpod
+        String gState(GstateREf ref) {
+            return 'Hello Code Generation';
+        }
+    ```
+- .g.dart 파일을 확인해보면 gState 뒤에 자동으로 Provider 이 붙어서 Provider 가 생성된걸 확인할수 있다.
+</details>
