@@ -509,6 +509,20 @@
     ```
 </details>
 
+## 6. Riverpod v2 Consumer 위젯 사용하기
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- 부모 위젯이 build 되면 자식위젯도 build 되지만, 자식 위젯이 build 될때 부모 위젯은 build 되지 않는다.
+- riverpod 의 Consumer 위젯을 사용하면 부모의 build 메서드가 아닌 Consumer 위젯의 builder 메서드가 새로 실행된다. 즉, 자식 위젯만 다시 build 되는 효과를 줄수 있다.
+- 렌더링 효율을 위해 주로 사용한다.
+- child 속성은 딱 한번만 렌더링 된다. 즉, builder 메서드가 실행되도 다시 랜더링 되지 않는다.
+- 렌더링 하는데 많은 퍼포먼스가 들어가는 위젯들을 child 로 넘겨주면 좋다.
+- const 와 비슷한 개념이다
+</details>
+
+
 
 
 
