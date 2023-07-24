@@ -429,3 +429,22 @@
     ```
 - .g.dart 파일을 확인해보면 gState 뒤에 자동으로 Provider 이 붙어서 Provider 가 생성된걸 확인할수 있다.
 </details>
+
+## 2. Riverpod v2 KeepAlive 세팅하기
+<details>
+<summary> 내용 보기</summary>
+<br>
+
+- .g.dart 파일을 분석해보면 autoDispose 로 Provider 가 생성된걸 알수 있다.
+- 즉, 일반적으로 generation 을 사용해 만들면 캐시처리가 안된다.
+- 캐시 처리를 하고싶다면 @Riverpod() 어노테이션을 사용해서 KeepAlive 속성에 true 를 넣어주면 된다.
+
+    ```
+        @Riverpod(keepAlive: true)
+        Future<int> gStateFuture2(GStateFuture2Ref ref) async {
+            await Future.delayed(const Duration(seconds: 3));
+            return 10;
+        }
+    ```
+</details>
+

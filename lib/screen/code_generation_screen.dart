@@ -9,11 +9,13 @@ class CodeGenerationScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state1 = ref.watch(gStateProvider);
+    final state2 = ref.watch(gStateFutureProvider);
     return DefaultLayout(
       title: 'CodeGenerationScreen',
       body: Column(
         children: [
           Text('state1: $state1'),
+          Text('state2: $state2'),
         ],
       ),
     );
